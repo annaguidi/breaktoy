@@ -1,5 +1,6 @@
 require 'factory_girl_rails'
 require 'support/factories'
+require 'support/database_cleaner'
 
 require 'coveralls'
 Coveralls.wear!('rails')
