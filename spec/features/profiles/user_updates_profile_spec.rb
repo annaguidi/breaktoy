@@ -1,15 +1,16 @@
 require 'rails_helper'
 feature "User updates profile" do
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:profile) { FactoryGirl.create(:profile, user: user) }
 
   scenario 'user navigates to edit profile page' do
-    visit root_path
-    click_on 'Sign in'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_on 'Log in'
+
+    login(user)
+    click_link "Profile"
 
     visit profile_path(profile)
+
+    click_link "Edit Profile"
 
     fill_in 'Name', with: "Anna"
     fill_in 'Current location', with: "Milan, Italy"
@@ -18,5 +19,11 @@ feature "User updates profile" do
     click_on 'Update'
 
     expect(page).to have_content('Profile updated!')
+
+    visit profile_path(profile)
+
+    expect(page).to have_content("Anna")
+    expect(page).to have_content("Milan, Italy")
+    expect(page).to have_content("About to move to Rotterdam, NL")
   end
 end

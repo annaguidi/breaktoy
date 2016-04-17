@@ -1,0 +1,14 @@
+<h3>Edit Profile</h3>
+
+<%= form_for @profile do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :location, "Current location" %>
+  <%= f.text_field :location %>
+
+  <%= f.label :about, "About me" %>
+  <%= f.text_area :about %>
+
+  <%= f.submit "Update Profile" %>
+<% end %>

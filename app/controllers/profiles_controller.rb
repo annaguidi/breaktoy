@@ -4,21 +4,18 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    binding.pry
     @profile = Profile.find(params[:id])
     @user = @profile.user
   end
 
   def edit
-    binding.pry
     @profile = Profile.find(params[:id])
   end
 
   def update
-    binding.pry
     @profile = Profile.find(params[:id])
     if @profile.update(profile_params)
-      flash[:notice] = "Successfully edited your Profile!"
+      flash[:notice] = "Profile updated!"
       redirect_to profile_path(@profile)
     else
       flash[:error] = "Did not manage to update profile. #{@profile.errors.full_messages.join(', ')}."
@@ -29,7 +26,6 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    binding.pry
     params.require(:profile).permit(
       :name,
       :location,

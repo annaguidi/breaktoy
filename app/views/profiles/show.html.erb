@@ -1,15 +1,24 @@
-<div class="profile_options">
+<div class="title">
+  <h3>Your Profile!</h3>
+</div>
 
-  <div class="edit_profile">
-    <%= link_to "Edit Profile", edit_profile_path %>
-  </div>
+</div>
 
-  <div class="edit_registration">
-    <%= link_to('Edit registration', edit_user_registration_path) %>
-  </div>
+<div class="information">
 
-  <div class="title">
-    <h3>Your Profile!</h3>
-  </div>
+    <% if @profile.name != nil %>
+      <p><%= @profile.name %></p>
+    <% end %>
 
+    <% if @profile.about != nil %>
+      <p><%= @profile.about %></p>
+    <% end %>
+
+    <% if @profile.location != nil %>
+      <p><%= @profile.location %></p>
+    <% end %>
+</div>
+
+<div class="edit_profile">
+  <%= link_to "Edit Profile", edit_profile_path %>
 </div>

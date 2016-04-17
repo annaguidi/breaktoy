@@ -1,9 +1,10 @@
 require 'rails_helper'
 feature "User deletes account" do
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:profile) { FactoryGirl.create(:profile, user: user) }
 
   scenario 'user navigates to edit account page' do
-    user_login
+    login(user)
 
     click_on 'Edit registration'
 
@@ -11,7 +12,7 @@ feature "User deletes account" do
   end
 
   scenario 'user attempts to log in with deleted account' do
-    user_login
+    login(user)
 
     click_on 'Edit registration'
 
