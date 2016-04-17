@@ -3,7 +3,6 @@ feature "User logs out" do
   scenario 'user successfully logs out' do
     user = FactoryGirl.create(:user)
     login(user)
-    save_and_open_page
 
     expect(page).to have_content("Sign out")
     expect(page).to have_content("Signed in successfully")

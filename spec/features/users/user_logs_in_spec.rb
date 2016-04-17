@@ -18,7 +18,6 @@ feature "User logs in" do
 
     fill_in "Email", with: user.email
     fill_in "Password", with: "wrongpassword"
-    save_and_open_page
 
     click_on "Log in"
 
