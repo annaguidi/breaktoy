@@ -1,6 +1,7 @@
 require 'rails_helper'
 feature "User logs in" do
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:profile) { FactoryGirl.create(:profile, user: user) }
 
   scenario 'user navigates to log in page' do
     visit root_path

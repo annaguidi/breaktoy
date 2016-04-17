@@ -1,0 +1,24 @@
+<div class="title">
+  <h3>Your Profile!</h3>
+</div>
+
+</div>
+
+<div class="information">
+
+    <% if @profile.name != nil %>
+      <p><%= @profile.name %></p>
+    <% end %>
+
+    <% if @profile.about != nil %>
+      <p><%= @profile.about %></p>
+    <% end %>
+
+    <% if @profile.location != nil %>
+      <p><%= @profile.location %></p>
+    <% end %>
+</div>
+
+<div class="edit_profile">
+  <%= link_to "Edit Profile", edit_profile_path %>
+</div>
