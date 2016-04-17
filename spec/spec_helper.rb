@@ -1,5 +1,9 @@
 require 'factory_girl_rails'
 require 'support/factories'
+
+require 'coveralls'
+Coveralls.wear!('rails')
+
 # require 'capybara/poltergeist'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
