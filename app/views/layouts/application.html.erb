@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>MapShare</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <%= link_to "Sign up", new_user_registration_path if !current_user %>
-   <%= link_to "Sign in", new_user_session_path if !current_user%>
-   <%= link_to "Sign out", destroy_user_session_path, method: :delete if current_user%>
-   <%= link_to "Edit registration", edit_user_registration_path if current_user %>
-   <div class="notices small-12 columns" id="flash-notices">
-     <% flash.each do |name, msg| %>
-       <% if msg.is_a?(String) %>
-         <%= content_tag :div, msg, :class => "flash_#{name}" %>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "MapShare" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <%= link_to "Sign up", new_user_registration_path if !current_user %>
+     <%= link_to "Sign in", new_user_session_path if !current_user%>
+     <%= link_to "Sign out", destroy_user_session_path, method: :delete if current_user%>
+     <%= link_to "Edit registration", edit_user_registration_path if current_user %>
+     <div class="notices small-12 columns" id="flash-notices">
+       <% flash.each do |name, msg| %>
+         <% if msg.is_a?(String) %>
+           <%= content_tag :div, msg, :class => "flash_#{name}" %>
+         <% end %>
        <% end %>
-     <% end %>
-   </div>
+     </div>
 
-<%= yield %>
+    <%= yield %>
 
-</body>
+  </body>
 </html>
