@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  before_action :authorize_user, only: [:show, :edit, :update]
+
   def index
     @profiles = Profile.all
   end
@@ -10,6 +12,11 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = Profile.find(params[:id])
+    if current_user.email == @profile.user.email
+      render :edit
+    else
+      redirect_to root_path
+    end
   end
 
   def update
@@ -33,5 +40,11 @@ class ProfilesController < ApplicationController
       :avatar_url,
       :remove_avatar_url
     )
+  end
+
+  def authorize_user
+    if !user_signed_in?
+      redirect_to root_path
+    end
   end
 end
