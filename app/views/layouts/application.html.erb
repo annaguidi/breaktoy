@@ -16,7 +16,8 @@
      <%= link_to "Sign in", new_user_session_path if !current_user%>
      <%= link_to "Sign out", destroy_user_session_path, method: :delete if current_user%>
      <%= link_to "Edit registration", edit_user_registration_path if current_user %>
-     <%= link_to "Profile", profile_path(current_user.profile) if !current_user.nil? && user_signed_in? %>
+     <%= link_to "Profile", profile_path(current_user.profile) if current_user %>
+     
      <div class="notices small-12 columns" id="flash-notices">
        <% flash.each do |name, msg| %>
          <% if msg.is_a?(String) %>

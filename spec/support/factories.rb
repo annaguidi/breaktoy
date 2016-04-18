@@ -14,4 +14,13 @@ FactoryGirl.define do
     about "Isn't this punny?!"
     user
   end
+
+  factory :group do
+    name "Tulipe"
+  end
+
+  factory :member do
+    user
+    group
+  end
 end
