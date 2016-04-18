@@ -6,17 +6,22 @@
 
 <div class="information">
 
-    <% if @profile.name != nil %>
+    <% if @profile.name.nil? != true %>
       <p><%= @profile.name %></p>
     <% end %>
 
-    <% if @profile.about != nil %>
+    <% if @profile.about.nil? != true %>
       <p><%= @profile.about %></p>
     <% end %>
 
-    <% if @profile.location != nil %>
+    <% if @profile.location.nil? != true %>
       <p><%= @profile.location %></p>
     <% end %>
+
+    <% if @profile.avatar_url.nil? != true %>
+      <p><%= image_tag "#{@profile.avatar_url.thumb.url}" %></p>
+    <% end %>
+
 </div>
 
 <div class="edit_profile">

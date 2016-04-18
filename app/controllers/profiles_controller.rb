@@ -30,7 +30,8 @@ class ProfilesController < ApplicationController
       :name,
       :location,
       :about,
-      :avatar_url
+      :avatar_url,
+      :remove_avatar_url
     )
   end
 end

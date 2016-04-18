@@ -34,6 +34,9 @@ gem 'devise'
 
 gem 'foundation-rails'
 
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.3'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'

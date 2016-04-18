@@ -10,5 +10,13 @@
   <%= f.label :about, "About me" %>
   <%= f.text_area :about %>
 
+  <%= f.label :avatar_url, "Upload Image" %><br>
+  <%= f.file_field :avatar_url %>
+  <% if f.object.avatar_url? %>
+    <%= image_tag f.object.avatar_url.thumb.url %>
+    <%= f.label :remove_avatar_url %>
+    <%= f.check_box :remove_avatar_url %>
+  <% end %>
+
   <%= f.submit "Update Profile" %>
 <% end %>
