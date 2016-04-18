@@ -15,6 +15,7 @@ feature "User updates profile" do
     fill_in 'Name', with: "Anna"
     fill_in 'Current location', with: "Milan, Italy"
     fill_in 'About me', with: "About to move to Rotterdam, NL"
+    attach_file "Upload Image", "#{Rails.root}/spec/support/images/photo.jpg"
 
     click_on 'Update'
 
@@ -25,5 +26,6 @@ feature "User updates profile" do
     expect(page).to have_content("Anna")
     expect(page).to have_content("Milan, Italy")
     expect(page).to have_content("About to move to Rotterdam, NL")
+    expect(page).to have_css("img[src*='photo.jpg']")
   end
 end
