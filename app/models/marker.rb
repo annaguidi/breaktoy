@@ -4,6 +4,6 @@ class Marker < ActiveRecord::Base
   validates :member, presence: true
 
   reverse_geocoded_by :latitude, :longitude,
-  :address => :address
+                      :address => :address
   after_validation :reverse_geocode
 end
