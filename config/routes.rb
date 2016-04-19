@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :profiles
+  resources :groups
+  resources :markers
+  resources :members
+
 
   root 'staticpages#index'
   # The priority is based upon order of creation: first created -> highest priority.

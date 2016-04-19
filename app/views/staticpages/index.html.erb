@@ -1,6 +1,58 @@
-<body>
   <div class="main-title">
     <h1>This the main page</h1>
   </div>
 
-</body>
+  <script defer>
+  var map;
+  var infoWindow;
+  var service;
+  var markers = [];
+  var results = [];
+  var pos;
+  var marker;
+  var placeLoc;
+  var pageDetails;
+  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var labelIndex = 0;
+
+  function initMap() {
+    var mapProp = {
+      center:new google.maps.LatLng(42.3601,-71.0589),
+      zoom:12,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+    google.maps.event.addListener(map, 'click', function(event) {
+      addMarker(event.latLng, map);
+      submitMarkersViaAjax(event.latLng);
+    });
+
+    var submitMarkersViaAjax = function(latLng) {
+      var request = $.ajax({
+        method: "POST",
+        url: "/markers",
+        data: { latitude: latLng.lat(),
+        longitude: latLng.lng() }
+      });
+    }
+  }
+    // This event listener calls addMarker() when the map is clicked.
+
+     // Adds a marker to the map.
+  function addMarker(location, map) {
+    // Add the marker at the clicked location, and add the next-available label
+    // from the array of alphabetical characters.
+    var marker = new google.maps.Marker({
+      position: location,
+      label: labels[labelIndex++ % labels.length],
+      map: map
+    });
+  }
+
+  google.maps.event.addDomListener(window, 'load', initMap);
+  </script>
+
+
+
+  <div id="googleMap" style="width:500px;height:380px;"></div>

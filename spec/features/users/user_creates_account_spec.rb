@@ -1,10 +1,3 @@
-# I should be able to sign up for an account using a link which I can find on
-# the root page
-
-# [X] I should be able to specify my email, password, password confirmation
-# [X] I should be able to login to my account
-# [X] I should be able to logout of my account
-
 require 'rails_helper'
 feature "User creates account" do
   scenario 'user navigates to sign up page' do
