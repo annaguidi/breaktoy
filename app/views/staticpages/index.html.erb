@@ -3,29 +3,32 @@
   </div>
 
   <script defer>
-  var map;
-  var infoWindow;
-  var service;
-  var markers = [];
-  var results = [];
-  var pos;
-  var marker;
-  var placeLoc;
-  var pageDetails;
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
+  var marker;
+  var map;
 
   function initMap() {
     var mapProp = {
       center:new google.maps.LatLng(42.3601,-71.0589),
-      zoom:12,
-      mapTypeId:google.maps.MapTypeId.ROADMAP
+      zoom:12
     };
-    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
     google.maps.event.addListener(map, 'click', function(event) {
       addMarker(event.latLng, map);
       submitMarkersViaAjax(event.latLng);
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '/staticpages/markers',
+      dataType: 'json',
+      success: function(response) {
+        for (var i = 0; i < response.length; i++) {
+          addMarkerByLatLng(response[i].title, response[i].latitude, response[i].longitude, map);
+        };
+      }
     });
 
     var submitMarkersViaAjax = function(latLng) {
@@ -37,22 +40,29 @@
       });
     }
   }
-    // This event listener calls addMarker() when the map is clicked.
 
-     // Adds a marker to the map.
   function addMarker(location, map) {
     // Add the marker at the clicked location, and add the next-available label
     // from the array of alphabetical characters.
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
       map: map
     });
   }
 
+  var addMarkerByLatLng = function(label,lat, lng, map) {
+    // Add the marker at the clicked location, and add the next-available label
+    // from the array of alphabetical characters.
+    marker = new google.maps.Marker({
+      position: {lat: lat, lng: lng},
+      label: label,
+      map: map
+    });
+  }
+
   google.maps.event.addDomListener(window, 'load', initMap);
   </script>
-
 
 
   <div id="googleMap" style="width:500px;height:380px;"></div>

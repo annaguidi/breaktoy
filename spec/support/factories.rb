@@ -17,6 +17,8 @@ FactoryGirl.define do
 
   factory :group do
     name "Tulipe"
+    city "Milano"
+    country "Italy"
   end
 
   factory :member do
