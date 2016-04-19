@@ -31,11 +31,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+gem 'json'
 
 gem 'foundation-rails'
 
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3'
+gem 'geocoder'
 
 group :development, :test do
   gem 'pry-rails'
@@ -51,6 +53,7 @@ end
 group :test do
   gem 'coveralls', require: false
   gem 'database_cleaner'
+  gem 'listen'
 end
 
 group :development do
