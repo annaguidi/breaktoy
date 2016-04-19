@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   resources :groups
   resources :markers
   resources :members
+  resources :staticpages do
+    collection do
+      get 'markers'
+    end
+  end
 
 
   root 'staticpages#index'

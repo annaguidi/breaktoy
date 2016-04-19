@@ -10,13 +10,12 @@ class MarkersController < ApplicationController
 
   def create
     @marker = Marker.new
-    @group = Group.create(name: "Happy Friends")
+    @group = Group.create(name: "Happy Friends", city: "Boston", country: "USA")
     @member = Member.create(user: current_user, group: @group)
     @marker.latitude = params[:latitude]
     @marker.longitude = params[:longitude]
     @marker.member = @member
+    @marker.title = "WOAH"
     @marker.save
-    @markers = Marker.all
-    render json: @markers
   end
 end

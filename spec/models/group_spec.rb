@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe Group, type: :model do
   let(:group) do
     Group.new(
-      name: "Tulipe"
+      name: "Tulipe",
+      city: "Milano",
+      country: "USA"
     )
   end
 
