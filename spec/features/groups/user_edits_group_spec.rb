@@ -56,7 +56,6 @@ feature "User edits one of his or her groups" do
     fill_in 'Name', with: "Cool Kids"
     click_on 'Submit'
 
-
     expect(page).to have_content("You do not have permission to change this group")
   end
 end
