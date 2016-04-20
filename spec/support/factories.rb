@@ -16,7 +16,7 @@ FactoryGirl.define do
   end
 
   factory :group do
-    name "Tulipe"
+    sequence(:name) { |n| "Tulipe#{n}" }
     city "Milano"
     country "Italy"
   end

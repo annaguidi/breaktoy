@@ -1,0 +1,7 @@
+<ul>
+
+  <% @relevant_groups.each do |group| %>
+    <%= link_to "#{group.name}", group_path(group) %><br/>
+  <% end %>
+
+</ul>

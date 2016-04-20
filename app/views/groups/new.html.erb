@@ -1,6 +1,7 @@
-<h3>New Fortune</h3>
-<%= form_for :fortune, html: { id: :new_fortune } do |f| %>
-  <%= f.label :content %>
-  <%= f.text_field :content %>
-  <%= f.submit %>
-<% end %>
+<h3>Create Your Group!</h3>
+
+<div class="row">
+  Please fill out all fields in order to create your group.
+</div>
+
+<%= render "form" %>
