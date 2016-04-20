@@ -10,12 +10,16 @@ class MarkersController < ApplicationController
 
   def create
     @marker = Marker.new
-    @group = Group.create(name: "Happy Friends", city: "Boston", country: "USA")
-    @member = Member.create(user: current_user, group: @group)
+    @url = params[:url]
+    @id = @url.split("/")[-1]
+    @group = Group.find(@id)
+    @member = Member.where(group: @group).find_by(user: current_user)
     @marker.latitude = params[:latitude]
     @marker.longitude = params[:longitude]
     @marker.member = @member
     @marker.title = "WOAH"
     @marker.save
+    @markers = Marker.where(group: @group)
+    render json: @markers
   end
 end

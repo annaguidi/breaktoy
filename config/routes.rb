@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :profiles
-  resources :groups
-  resources :markers
-  resources :members
-  resources :staticpages do
+  resources :groups do
     collection do
       get 'markers'
     end
   end
+  resources :markers
+  resources :members
+  resources :staticpages
 
 
   root 'staticpages#index'
