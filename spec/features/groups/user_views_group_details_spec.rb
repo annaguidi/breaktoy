@@ -6,16 +6,16 @@ feature "User views detail of his/her group" do
   let!(:user2) { FactoryGirl.create(:user) }
   let!(:profile2) { FactoryGirl.create(:profile, user: user2) }
 
-  let!(:group) { FactoryGirl.create(:group)}
+  let!(:group) { FactoryGirl.create(:group) }
 
-  let!(:member1) { FactoryGirl.create(:member, user: user, group: group)}
+  let!(:member1) { FactoryGirl.create(:member, user: user, group: group) }
 
   scenario 'user successfully views details of a group' do
     login(user)
 
     click_link "See your Groups"
 
-    click_link "#{group.name}"
+    click_link group.name
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)

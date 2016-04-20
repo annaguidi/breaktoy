@@ -43,7 +43,7 @@ feature "User edits one of his or her groups" do
 
     click_link "See your Groups"
 
-    click_link "#{group.name}"
+    click_link group.name
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
