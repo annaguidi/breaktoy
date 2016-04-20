@@ -6,17 +6,17 @@ feature "User edits one of his or her groups" do
   let!(:user2) { FactoryGirl.create(:user) }
   let!(:profile2) { FactoryGirl.create(:profile, user: user2) }
 
-  let!(:group) { FactoryGirl.create(:group)}
+  let!(:group) { FactoryGirl.create(:group) }
 
-  let!(:member1) { FactoryGirl.create(:member, user: user, group: group, owner: true)}
-  let!(:member2) { FactoryGirl.create(:member, user: user2, group: group, owner: false)}
+  let!(:member1) { FactoryGirl.create(:member, user: user, group: group, owner: true) }
+  let!(:member2) { FactoryGirl.create(:member, user: user2, group: group, owner: false) }
 
   scenario 'user successfully edits details of a group' do
     login(user)
 
     click_link "See your Groups"
 
-    click_link "#{group.name}"
+    click_link group.name
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
