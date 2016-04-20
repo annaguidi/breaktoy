@@ -10,7 +10,6 @@ feature "User deletes account" do
 
     expect(page).to have_content('Cancel my account')
   end
-
   scenario 'user attempts to log in with deleted account' do
     login(user)
 

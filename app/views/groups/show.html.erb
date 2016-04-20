@@ -1,0 +1,12 @@
+
+<h3>Group Info</h3>
+
+<%= @group.name %><br/>
+<%= @group.city %><br/>
+<%= @group.country %><br/>
+
+<% @group.members.each do |member| %>
+  <%= member.user.profile.name %><br/>
+<% end %>
+
+<%= link_to "Edit #{@group.name}", edit_group_path(@group) %>

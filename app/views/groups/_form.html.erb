@@ -1,0 +1,15 @@
+<%= form_for @group do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :city, "City" %>
+  <%= f.text_field :city %>
+
+  <%= f.label :state, "State" %>
+  <%= f.text_field :state %>
+
+  <%= f.label :country, "Country" %>
+  <%= f.text_area :country %>
+
+  <%= f.submit "Submit", class: "button" %>
+<% end %>

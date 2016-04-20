@@ -27,7 +27,6 @@ feature "User updates profile" do
     expect(page).to have_content("About to move to Rotterdam, NL")
     expect(page).to have_css("img[src*='photo.jpg']")
   end
-
   scenario 'malicious user tries to edit different Profile' do
     user2 = FactoryGirl.create(:user)
     profile2 = FactoryGirl.create(:profile, user: user2)
