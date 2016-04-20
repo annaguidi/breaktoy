@@ -22,6 +22,16 @@ class GroupsController < ApplicationController
     end
   end
 
+  def markers
+    @url = params[:url]
+    @id = @url.split("/")[-1]
+    @group = Group.find(@id)
+    @members = @group.members
+    # @markers = Marker.all
+    @markers = Marker.where(member: @members)
+    render json: @markers
+  end
+
   def new
     @group = Group.new
   end
