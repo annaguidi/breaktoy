@@ -60,14 +60,8 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    x = 0
-    @group.members.each do |member|
-      if member.user == current_user && member.owner == true
-        x = 1
-      end
-    end
 
-    if x == 1
+    if owner?(@group) == true
       if @group.update(group_params)
         flash[:notice] = "You just updated your Group Info!"
         redirect_to "/"
@@ -78,6 +72,23 @@ class GroupsController < ApplicationController
     else
       flash[:notice] = "You do not have permission to change this group"
       redirect_to "/"
+    end
+  end
+
+  def destroy
+    @group = Group.find(params[:id])
+
+    if owner?(@group) == true
+      if @group.destroy
+        flash[:notice] = "Group Deleted Successfully"
+        redirect_to groups_path
+      else
+        flash[:notice] = "You do not have permission to delete this group"
+        render :show
+      end
+    else
+      flash[:notice] = "You do not have permission to delete this group"
+      render :show
     end
   end
 
@@ -95,6 +106,14 @@ class GroupsController < ApplicationController
   def member?(group)
     group.members.each do |member|
       if member.user == current_user
+        return true
+      end
+    end
+  end
+
+  def owner?(group)
+    group.members.each do |member|
+      if member.user == current_user && member.owner == true
         return true
       end
     end
