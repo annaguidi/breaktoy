@@ -42,6 +42,7 @@ gem 'geocoder'
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'dotenv-rails'
   gem 'capybara'
   gem 'launchy'
   gem 'factory_girl'
