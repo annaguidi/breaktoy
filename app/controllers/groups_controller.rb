@@ -112,7 +112,7 @@ class GroupsController < ApplicationController
   end
 
   def owner?(group)
-    @group.members.each do |member|
+    group.members.each do |member|
       if member.user == current_user && member.owner == true
         return true
       end
