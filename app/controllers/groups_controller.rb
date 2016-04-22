@@ -23,8 +23,7 @@ class GroupsController < ApplicationController
   end
 
   def markers
-    @url = params[:url]
-    @id = @url.split("/")[-1]
+    @id = params[:group_id]
     @group = Group.find(@id)
     @members = @group.members
     # @markers = Marker.all
