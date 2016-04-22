@@ -90,6 +90,16 @@
 
     google.maps.event.addListener(map, 'click', function(event) {
       addMarker(event.latLng, map);
+      google.maps.event.addListener(marker, 'click', (function (marker) {
+        return function () {
+          infowindow.setContent(container);
+          console.log(marker.id);
+          htmlBox.innerHTML = marker.label + '</br>' + marker.description +
+          '</br>' + marker.id + '</br>'
+          + "<a href='#' class='edit-btn' data-marker-id=' " + marker.id + " '>Edit</a>"
+          infowindow.open(map, marker);
+        }
+      })(marker));
       submitMarkersViaAjax(event.latLng);
     });
 
@@ -106,7 +116,8 @@
             return function () {
               infowindow.setContent(container);
               console.log(marker.id);
-              htmlBox.innerHTML = marker.label + '</br>' + marker.description + '</br>'
+              htmlBox.innerHTML = marker.label + '</br>' + marker.description +
+              '</br>' + marker.id + '</br>'
               + "<a href='#' class='edit-btn' data-marker-id=' " + marker.id + " '>Edit</a>"
               infowindow.open(map, marker);
             }
@@ -117,9 +128,25 @@
 
     $(document).on('click', '.edit-btn', function loadEditForm() {
       var markerId = $(this).data("marker-id");
-      htmlBox.innerHTML = "Hello" + markerId;
+      htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value=' " + marker.label + " '><br> Description:<br> <input type='text' id='description' name='description' value=' " + marker.description + " '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + markerId + " ' value='Submit'>" + "</form>"
     });
 
+    $(document).on('click', '#submitButton', function editInfo() {
+      event.preventDefault();
+      var title = document.getElementById('title').value;
+      var description = document.getElementById('description').value;
+      var id = $(this).data("submit-id");
+
+      htmlBox.innerHTML = title + '</br>' + description +
+      '</br>' + id + '</br>'
+      + "<a href='#' class='edit-btn' data-marker-id=' " + id + " '>Edit</a>"
+
+      var request = $.ajax({
+        method: "POST",
+        url: "/groups/updatemarkers",
+        data: { title: title, description: description, id: id }
+      });
+    });
 
 
     var submitMarkersViaAjax = function(latLng) {

@@ -31,6 +31,14 @@ class GroupsController < ApplicationController
     render json: @markers
   end
 
+  def updatemarkers
+    @marker =  Marker.find(params[:id])
+    @marker.title = params[:title]
+    @marker.description = params[:description]
+    @marker.save
+    render json: @marker
+  end
+
   def new
     @group = Group.new
   end

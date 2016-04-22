@@ -9,6 +9,7 @@ class MarkersController < ApplicationController
   end
 
   def create
+    binding.pry
     @marker = Marker.new
     @id = params[:group_id]
     @group = Group.find(@id)
@@ -21,8 +22,5 @@ class MarkersController < ApplicationController
     @marker.save
     @markers = Marker.where(group: @group)
     render json: @markers
-  end
-
-  def edit
   end
 end
