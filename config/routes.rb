@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :groups do
     collection do
       get 'markers'
+      post 'updatemarkers'
     end
   end
   resources :markers
