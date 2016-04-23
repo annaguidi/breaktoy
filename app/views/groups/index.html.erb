@@ -1,7 +1,16 @@
-<ul>
+<body class="page5">
 
-  <% @relevant_groups.each do |group| %>
-    <%= link_to "#{group.name}", group_path(group) %><br/>
-  <% end %>
+  <div class="group-index-page">
+    Your Groups!
+  </div>
 
-</ul>
+  <div class="group-content">
+    <% @relevant_groups.each do |group| %>
+      <div class="small-12 medium-4 columns groupies">
+        <%= link_to "#{group.name}", group_path(group) %></br>
+        <%= group.city %>
+      </div>
+    <% end %>
+  </div>
+
+</body>

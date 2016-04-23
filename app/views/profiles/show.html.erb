@@ -1,4 +1,4 @@
-<div class="title">
+<div class="Profiletitle">
   <h3>Your Profile!</h3>
 </div>
 
@@ -7,15 +7,15 @@
 <div class="information">
 
     <% if @profile.name.nil? != true %>
-      <p><%= @profile.name %></p>
+      <div class="row">Name: <%= @profile.name %></div>
     <% end %>
 
     <% if @profile.about.nil? != true %>
-      <p><%= @profile.about %></p>
+      <div class="row">About: <%= @profile.about %></div>
     <% end %>
 
     <% if @profile.location.nil? != true %>
-      <p><%= @profile.location %></p>
+      <div class="row">Current Location: <%= @profile.location %></div>
     <% end %>
 
     <% if @profile.avatar_url.nil? != true %>
