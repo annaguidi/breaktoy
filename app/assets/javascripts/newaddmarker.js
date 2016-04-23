@@ -118,7 +118,9 @@
               console.log(marker.id);
               htmlBox.innerHTML = marker.label + '</br>' + marker.description +
               '</br>' + marker.id + '</br>'
-              + "<a href='#' class='edit-btn' data-marker-id=' " + marker.id + " '>Edit</a>"
+              + "<a href='#' class='edit-btn' data-marker-description=' " +
+              marker.description + " ' data-marker-title=' " + marker.label +
+              " ' data-marker-id=' " + marker.id + " '>Edit</a>"
               infowindow.open(map, marker);
             }
           })(marker, i));
@@ -128,7 +130,9 @@
 
     $(document).on('click', '.edit-btn', function loadEditForm() {
       var markerId = $(this).data("marker-id");
-      htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value=' " + marker.label + " '><br> Description:<br> <input type='text' id='description' name='description' value=' " + marker.description + " '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + markerId + " ' value='Submit'>" + "</form>"
+      var markerTitle = $(this).data("marker-title");
+      var markerDescription = $(this).data("marker-description");
+      htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value=' " + markerTitle + " '><br> Description:<br> <input type='text' id='description' name='description' value=' " + markerDescription + " '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + markerId + " ' value='Submit'>" + "</form>"
     });
 
     $(document).on('click', '#submitButton', function editInfo() {

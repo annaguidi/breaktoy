@@ -9,7 +9,6 @@ class MarkersController < ApplicationController
   end
 
   def create
-    binding.pry
     @marker = Marker.new
     @id = params[:group_id]
     @group = Group.find(@id)

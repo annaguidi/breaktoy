@@ -5,22 +5,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://maps.googleapis.com/maps/api/js?v=3.5&key=<%= ENV['MY_MAPS'] %>&libraries=places&callback=initMap"></script>
+    <link href='https://fonts.googleapis.com/css?family=Leckerli+One' rel='stylesheet' type='text/css'>
 
     <title><%= content_for?(:title) ? yield(:title) : "MapShare" %></title>
 
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <%= link_to "Sign up", new_user_registration_path if !current_user %>
-     <%= link_to "Sign in", new_user_session_path if !current_user%>
-     <%= link_to "Sign out", destroy_user_session_path, method: :delete if current_user%>
-     <%= link_to "Edit registration", edit_user_registration_path if current_user %>
-     <%= link_to "Profile", profile_path(current_user.profile) if current_user %>
-     <%= link_to "New Group", new_group_path if current_user %>
-     <%= link_to "See your Groups", groups_path if current_user %>
+    <div class="top-bar">
+
+      <div class="top-bar-left">
+        <ul class="vertical medium-horizontal menu">
+          <li class="menu-text unhappiness"> <%= link_to "Home Page", staticpages_path %> </li>
+        </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="dropdown menu happiness" data-dropdown-menu>
+          <li>
+            <a href="#">Your Account</a>
+              <ul class="menu">
+                <li><%= link_to "Sign up", new_user_registration_path if !current_user %></li>
+                <li><%= link_to "Sign in", new_user_session_path if !current_user%></li>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete if current_user%></li>
+                <li><%= link_to "Edit registration", edit_user_registration_path if current_user %></li>
+              </ul>
+          </li>
+          <% if current_user %>
+            <li>
+              <a href="#">Your Profile</a>
+                <ul class="menu">
+                  <li><%= link_to "Profile", profile_path(current_user.profile) %></li>
+                </ul>
+            </li>
+            <li>
+              <a href="#">Your Groups</a>
+                <ul class="menu">
+                  <li><%= link_to "New Group", new_group_path %></li>
+                  <li><%= link_to "See your Groups", groups_path %></li>
+                </ul>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
 
      <div class="notices small-12 columns" id="flash-notices">
        <% flash.each do |name, msg| %>
@@ -32,5 +62,6 @@
 
     <%= yield %>
 
+    <%= javascript_include_tag "application" %>
   </body>
 </html>
