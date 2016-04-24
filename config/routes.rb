@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get 'markers'
       post 'updatemarkers'
       post 'deletemarker'
+      post 'updatemarkerposition'
     end
   end
   resources :markers

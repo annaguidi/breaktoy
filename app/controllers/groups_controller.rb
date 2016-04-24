@@ -43,7 +43,14 @@ class GroupsController < ApplicationController
     @marker = Marker.find(params[:id])
     @marker.destroy
     render json: "Marker removed!"
+  end
 
+  def updatemarkerposition
+    @marker = Marker.find(params[:id])
+    @marker.longitude = params[:longitude]
+    @marker.latitude = params[:latitude]
+    @marker.save
+    render json: @marker
   end
 
   def new

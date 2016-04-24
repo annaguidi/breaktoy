@@ -200,8 +200,23 @@
       label: labels[labelIndex++ % labels.length],
       map: map,
       clickable: true,
-      draggable: true,
-      user: null
+      draggable: true
+    });
+
+    marker.addListener('dragend',function(event) {
+      var latitudine = event.latLng.lat();
+      var longitudine = event.latLng.lng();
+      var id = marker.id
+      var request = $.ajax({
+        method: "POST",
+        url: "/groups/updatemarkerposition",
+        data: { latitude: latitudine, longitude: longitudine, id: id },
+        success: function(response) {
+          debugger;
+          marker.id = response.id;
+          marker.position = {lat: response.latitude, lng: response.longitude};
+        }
+      });
     });
   }
 
@@ -215,10 +230,24 @@
       map: map,
       clickable: true,
       draggable: true,
-      html: "You can edit the text of this infowindow",
       description: data.description,
       id: data.id,
       user: data.user
+    });
+
+    marker.addListener('dragend',function(event) {
+      var latitudine = event.latLng.lat();
+      var longitudine = event.latLng.lng();
+      var id = marker.id
+      var request = $.ajax({
+        method: "POST",
+        url: "/groups/updatemarkerposition",
+        data: { latitude: latitudine, longitude: longitudine, id: id },
+        success: function(response) {
+          marker.id = response.id;
+          marker.position = {lat: response.latitude, lng: response.longitude};
+        }
+      });
     });
   }
 
