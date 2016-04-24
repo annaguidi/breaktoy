@@ -1,6 +1,7 @@
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   var marker;
+  var service;
   var map;
   var url = window.location.href;
   var infowindow = null;
@@ -25,7 +26,6 @@
   container.appendChild(htmlBox);
   container.appendChild(textBox);
 
-
   function initMap() {
     var mapProp = {
       center:new google.maps.LatLng(latitude_coord,longitude_coord),
@@ -38,6 +38,7 @@
     infowindow = new google.maps.InfoWindow({
       content: ''
     });
+
 
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
@@ -72,12 +73,22 @@
           scaledSize: new google.maps.Size(25, 25)
         };
 
-        markers.push(new google.maps.Marker({
+
+        markers.push(marker = new google.maps.Marker({
           map: map,
           icon: icon,
           title: place.name,
           position: place.geometry.location
         }));
+        google.maps.event.addListener(marker, 'click', (function (marker) {
+          return function () {
+            infowindow.setContent(container);
+            console.log(marker.id);
+            htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
+            infowindow.open(map, marker);
+          }
+        })(marker));
+        submitMarkersViaAjax(place.geometry.location);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -94,7 +105,6 @@
       addMarker(event.latLng, map);
       google.maps.event.addListener(marker, 'click', (function (marker) {
         return function () {
-          debugger;
           infowindow.setContent(container);
           console.log(marker.id);
           htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
@@ -137,10 +147,8 @@
         url: "/groups/deletemarker",
         data: { id: id },
         success: function(response) {
-          debugger;
         },
         error: function(response){
-          debugger;
         }
       });
       marker.setMap(null);
@@ -174,6 +182,19 @@
           marker.description = response.description;
         }
       });
+      google.maps.event.addListener(marker, 'click', (function (clickedMarker) {
+        return function () {
+          marker = clickedMarker;
+          infowindow.setContent(container);
+          console.log(clickedMarker.id);
+          htmlBox.innerHTML = clickedMarker.label + '</br>' + clickedMarker.description +
+          '</br>' + clickedMarker.user + '</br>'
+          + "<a href='#' class='edit-btn' data-marker-description=' " +
+          clickedMarker.description + " ' data-marker-title=' " + clickedMarker.label +
+          " ' data-marker-id=' " + clickedMarker.id + " '>Edit</a> <br> <a href='#' class='dlt-btn'>Delete</a>"
+          infowindow.open(map, clickedMarker);
+        }
+      })(marker));
 
     });
 
@@ -191,6 +212,24 @@
       });
     }
   }
+
+  var fx = google.maps.InfoWindow.prototype.setPosition;
+  //override the built-in setPosition-method
+  google.maps.InfoWindow.prototype.setPosition = function () {
+    //logAsInternal isn't documented, but as it seems
+    //it's only defined for InfoWindows opened on POI's
+    if (this.logAsInternal) {
+      google.maps.event.addListenerOnce(this, 'map_changed',function () {
+        var map = this.getMap();
+        //the infoWindow will be opened, usually after a click on a POI
+        if (map) {
+          //trigger the click
+          google.maps.event.trigger(map, 'click', {latLng: this.getPosition()});
+        }
+      });
+    }
+    fx.apply(this, arguments);
+  };
 
   function addMarker(location, map) {
     // Add the marker at the clicked location, and add the next-available label
@@ -212,7 +251,6 @@
         url: "/groups/updatemarkerposition",
         data: { latitude: latitudine, longitude: longitudine, id: id },
         success: function(response) {
-          debugger;
           marker.id = response.id;
           marker.position = {lat: response.latitude, lng: response.longitude};
         }
