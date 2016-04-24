@@ -6,9 +6,11 @@
 
   <div class="group-content">
     <% @relevant_groups.each do |group| %>
-      <div class="small-12 medium-4 columns groupies">
-        <%= link_to "#{group.name}", group_path(group) %></br>
-        <%= group.city %>
+      <div class="small-12 medium-4 columns">
+        <div class="groupies">
+          <%= link_to "#{group.name}", group_path(group) %></br>
+          <%= group.city %>
+        </div>
       </div>
     <% end %>
   </div>
