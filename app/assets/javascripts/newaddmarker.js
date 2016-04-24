@@ -4,6 +4,8 @@
   var map;
   var url = window.location.href;
   var infowindow = null;
+  var longitude_coord = $("#data-group-longitude").data("group-longitude");
+  var latitude_coord = $("#data-group-latitude").data("group-latitude");
 
   var htmlBox = document.createElement("div");
   htmlBox.innerHTML = "";
@@ -26,7 +28,7 @@
 
   function initMap() {
     var mapProp = {
-      center:new google.maps.LatLng(42.3601,-71.0589),
+      center:new google.maps.LatLng(latitude_coord,longitude_coord),
       zoom:12
     };
 

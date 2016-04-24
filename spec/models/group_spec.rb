@@ -5,7 +5,9 @@ RSpec.describe Group, type: :model do
     Group.new(
       name: "Tulipe",
       city: "Milano",
-      country: "USA"
+      country: "USA",
+      latitude: 71.34455,
+      longitude: -31.4356
     )
   end
 
