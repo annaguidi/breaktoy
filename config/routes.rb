@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection do
       get 'markers'
       post 'updatemarkers'
+      post 'deletemarker'
     end
   end
   resources :markers
