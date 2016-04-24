@@ -82,7 +82,6 @@
         }));
         google.maps.event.addListener(marker, 'click', (function (marker) {
           return function () {
-            debugger;
             infowindow.setContent(container);
             console.log(marker.id);
             htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
@@ -106,7 +105,6 @@
       addMarker(event.latLng, map);
       google.maps.event.addListener(marker, 'click', (function (marker) {
         return function () {
-          debugger;
           infowindow.setContent(container);
           console.log(marker.id);
           htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
@@ -253,7 +251,6 @@
         url: "/groups/updatemarkerposition",
         data: { latitude: latitudine, longitude: longitudine, id: id },
         success: function(response) {
-          debugger;
           marker.id = response.id;
           marker.position = {lat: response.latitude, lng: response.longitude};
         }
