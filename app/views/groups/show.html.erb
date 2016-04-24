@@ -1,21 +1,21 @@
 
 <h3>Group Info</h3>
 
-<%= @group.name %><br/>
-<%= @group.city %><br/>
-<%= @group.country %><br/>
+<%= @group.name %> - <%= @group.city %> - <%= @group.country %><br/>
 
 <% @group.members.each do |member| %>
   <%= member.user.profile.name %><br/>
 <% end %>
 
-<%= button_to "Delete", group_path(@group), class:"button", method:"delete" %>
-
-<%= link_to "Edit #{@group.name}", edit_group_path(@group) %>
+<div class="edit-group-info">
+  <%= button_to "Delete", group_path(@group), class:"button", method:"delete" %>
+  <%= link_to "Edit #{@group.name}", edit_group_path(@group), class:"button" %>
+</div>
 
 <span id="data-group-id" data-group-id= "<%= @group.id %>" ></span>
-<span id="data-user-email" data-user-email= "<%= current_user.email %>" ></span>
+<span id="data-group-latitude" data-group-latitude= "<%= @group.latitude %>" ></span>
+<span id="data-group-longitude" data-group-longitude= "<%= @group.longitude %>" ></span>
 
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-  <div id="googleMap" style="width:500px;height:380px;"></div>
+  <div id="googleMap" style="width:90%;height:100%;"></div>
   <div class="your point"></div>

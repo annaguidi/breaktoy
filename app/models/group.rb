@@ -5,4 +5,12 @@ class Group < ActiveRecord::Base
   validates :name, presence: true
   validates :city, presence: true
   validates :country, presence: true
+
+  geocoded_by :full_address
+  after_validation :geocode
+
+  def full_address
+    "#{city}, #{state}, #{country}"
+  end
+
 end
