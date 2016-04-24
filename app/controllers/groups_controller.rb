@@ -39,6 +39,13 @@ class GroupsController < ApplicationController
     render json: @marker
   end
 
+  def deletemarker
+    @marker = Marker.find(params[:id])
+    @marker.destroy
+    render json: "Marker removed!"
+
+  end
+
   def new
     @group = Group.new
   end

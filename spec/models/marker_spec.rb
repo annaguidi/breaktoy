@@ -14,7 +14,8 @@ RSpec.describe Marker, type: :model do
       state: "CT",
       zip_code: "06346",
       latitude: 51.508742,
-      longitude: -0.120850
+      longitude: -0.120850,
+      user: "Anna"
     )
   end
 

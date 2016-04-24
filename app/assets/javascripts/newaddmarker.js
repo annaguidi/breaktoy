@@ -92,11 +92,10 @@
       addMarker(event.latLng, map);
       google.maps.event.addListener(marker, 'click', (function (marker) {
         return function () {
+          debugger;
           infowindow.setContent(container);
           console.log(marker.id);
-          htmlBox.innerHTML = marker.label + '</br>' + marker.description +
-          '</br>' + marker.id + '</br>'
-          + "<a href='#' class='edit-btn' data-marker-id=' " + marker.id + " '>Edit</a>"
+          htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
           infowindow.open(map, marker);
         }
       })(marker));
@@ -112,26 +111,44 @@
       success: function(response) {
         for (var i = 0; i < response.length; i++) {
           addMarkerByLatLng(response[i], map);
-          google.maps.event.addListener(marker, 'click', (function (marker, i) {
+          google.maps.event.addListener(marker, 'click', (function (clickedMarker, i) {
             return function () {
+              marker = clickedMarker;
               infowindow.setContent(container);
-              console.log(marker.id);
-              htmlBox.innerHTML = marker.label + '</br>' + marker.description +
-              '</br>' + marker.id + '</br>'
+              console.log(clickedMarker.id);
+              htmlBox.innerHTML = clickedMarker.label + '</br>' + clickedMarker.description +
+              '</br>' + clickedMarker.user + '</br>'
               + "<a href='#' class='edit-btn' data-marker-description=' " +
-              marker.description + " ' data-marker-title=' " + marker.label +
-              " ' data-marker-id=' " + marker.id + " '>Edit</a>"
-              infowindow.open(map, marker);
+              clickedMarker.description + " ' data-marker-title=' " + clickedMarker.label +
+              " ' data-marker-id=' " + clickedMarker.id + " '>Edit</a> <br> <a href='#' class='dlt-btn'>Delete</a>"
+              infowindow.open(map, clickedMarker);
             }
           })(marker, i));
         };
       }
     });
 
+    $(document).on('click', '.dlt-btn', function deleteContent() {
+      var id = marker.id;
+      var request = $.ajax({
+        method: "POST",
+        url: "/groups/deletemarker",
+        data: { id: id },
+        success: function(response) {
+          debugger;
+        },
+        error: function(response){
+          debugger;
+        }
+      });
+      marker.setMap(null);
+    });
+
     $(document).on('click', '.edit-btn', function loadEditForm() {
-      var markerId = $(this).data("marker-id");
-      var markerTitle = $(this).data("marker-title");
-      var markerDescription = $(this).data("marker-description");
+      var markerId = marker.id;
+      var markerTitle = marker.label;
+      var markerDescription = marker.description;
+      var markerUser = marker.user;
       htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value=' " + markerTitle + " '><br> Description:<br> <input type='text' id='description' name='description' value=' " + markerDescription + " '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + markerId + " ' value='Submit'>" + "</form>"
     });
 
@@ -142,14 +159,20 @@
       var id = $(this).data("submit-id");
 
       htmlBox.innerHTML = title + '</br>' + description +
-      '</br>' + id + '</br>'
-      + "<a href='#' class='edit-btn' data-marker-id=' " + id + " '>Edit</a>"
+      '</br>' + marker.user + '</br>'
+      + "<a href='#' class='edit-btn' data-marker-id=' " + id + " '>Edit</a> <br> <a href='#' class='dlt-btn'>Delete</a>"
 
       var request = $.ajax({
         method: "POST",
         url: "/groups/updatemarkers",
-        data: { title: title, description: description, id: id }
+        data: { title: title, description: description, id: id },
+        success: function(response) {
+          marker.id = response.id;
+          marker.label = response.title;
+          marker.description = response.description;
+        }
       });
+
     });
 
 
@@ -158,7 +181,11 @@
         method: "POST",
         url: "/markers",
         data: { latitude: latLng.lat(),
-        longitude: latLng.lng(), group_id: group_id }
+        longitude: latLng.lng(), group_id: group_id },
+        success: function(response) {
+          marker.id = response.id;
+          marker.user = response.user;
+        }
       });
     }
   }
@@ -172,78 +199,10 @@
       map: map,
       clickable: true,
       draggable: true,
-      info: "LALALALA",
-      html: "You can edit the text of this infowindow"
+      user: null
     });
-
   }
 
-  function createEditableMarker(options) {
-    //(2) Create a marker normally.
-    //Marker class accepts any properties even if it's not related with Marker.
-    var marker = new google.maps.Marker(options);
-
-    //(3)Set a flag property which stands for the editing mode.
-    marker.set("editing", false);
-
-    //(4)Create a div element to display the HTML strings.
-    var htmlBox = document.createElement("div");
-    htmlBox.innerHTML = options.html || "";
-    htmlBox.style.width = "300px";
-    htmlBox.style.height = "100px";
-
-    //(5)Create a textarea for edit the HTML strings.
-    var textBox = document.createElement("textarea");
-    textBox.innerText = options.html || "";
-    textBox.style.width = "300px";
-    textBox.style.height = "100px";
-    textBox.style.display = "none";
-
-    //(6)Create a div element for container.
-    var container = document.createElement("div");
-    container.style.position = "relative";
-    container.appendChild(htmlBox);
-    container.appendChild(textBox);
-
-    //(7)Create a button to switch the edit mode
-    var editBtn = document.createElement("button");
-    editBtn.innerText = "Edit";
-    container.appendChild(editBtn);
-
-    //(8)Create an info window
-    var infoWnd = new google.maps.InfoWindow({
-      content : container
-    });
-
-    var infoWnd = new google.maps.InfoWindow({
-      content : container
-    });
-
-    //(9)The info window appear when the marker is clicked.
-    google.maps.event.addListener(marker, "click", function() {
-      debugger;
-      infoWnd.open(marker.getMap(), marker);
-    });
-
-    //(10)Switch the mode. Since Boolean type for editing property,
-    //the value can be change just negation.
-    google.maps.event.addDomListener(editBtn, "click", function() {
-      marker.set("editing", !marker.editing);
-    });
-
-    //(11)A (property)_changed event occur when the property is changed.
-    google.maps.event.addListener(marker, "editing_changed", function(){
-      textBox.style.display = this.editing ? "block" : "none";
-      htmlBox.style.display = this.editing ? "none" : "block";
-    });
-
-    //(12)A change DOM event occur when the textarea is changed, then set the value into htmlBox.
-    google.maps.event.addDomListener(textBox, "change", function(){
-      htmlBox.innerHTML = textBox.value;
-      marker.set("html", textBox.value);
-    });
-    return marker;
-  }
 
   var addMarkerByLatLng = function(data, map) {
     // Add the marker at the clicked location, and add the next-available label
@@ -256,7 +215,8 @@
       draggable: true,
       html: "You can edit the text of this infowindow",
       description: data.description,
-      id: data.id
+      id: data.id,
+      user: data.user
     });
   }
 
