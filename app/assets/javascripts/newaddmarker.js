@@ -11,7 +11,7 @@
   var htmlBox = document.createElement("div");
   htmlBox.innerHTML = "";
   htmlBox.style.width = "300px";
-  htmlBox.style.height = "100px";
+  htmlBox.style.height = "200px";
 
   //(5)Create a textarea for edit the HTML strings.
   var textBox = document.createElement("textarea");
@@ -69,7 +69,7 @@
           url: place.icon,
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
+          anchor: new google.maps.Point(0, 0),
           scaledSize: new google.maps.Size(25, 25)
         };
 
@@ -84,11 +84,11 @@
           return function () {
             infowindow.setContent(container);
             console.log(marker.id);
-            htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
+            htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
             infowindow.open(map, marker);
+            submitMarkersViaAjax(marker.position);
           }
         })(marker));
-        submitMarkersViaAjax(place.geometry.location);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -98,6 +98,7 @@
         }
       });
       map.fitBounds(bounds);
+      map.setZoom(14);
     });
 
 
@@ -107,7 +108,7 @@
         return function () {
           infowindow.setContent(container);
           console.log(marker.id);
-          htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
+          htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value='Title: '><br> Description:<br> <input type='text' id='description' name='description' value='Description: '><br> <input type='submit' id='submitButton' data-submit-id=' " + marker.id + " ' value='Submit'>" + "</form>"
           infowindow.open(map, marker);
         }
       })(marker));
@@ -159,14 +160,14 @@
       var markerTitle = marker.label;
       var markerDescription = marker.description;
       var markerUser = marker.user;
-      htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value=' " + markerTitle + " '><br> Description:<br> <input type='text' id='description' name='description' value=' " + markerDescription + " '><br><br> <input type='submit' id='submitButton' data-submit-id=' " + markerId + " ' value='Submit'>" + "</form>"
+      htmlBox.innerHTML = "<form id='formoid' action='#'> Title: <br> <input id='title' type='text' name='title' value=' " + markerTitle + " '><br> Description:<br> <input type='text' id='description' name='description' value=' " + markerDescription + " '><br> <input type='submit' id='submitButton' data-submit-id=' " + markerId + " ' value='Submit'>" + "</form>"
     });
 
     $(document).on('click', '#submitButton', function editInfo() {
       event.preventDefault();
       var title = document.getElementById('title').value;
       var description = document.getElementById('description').value;
-      var id = $(this).data("submit-id");
+      var id = marker.id;
 
       htmlBox.innerHTML = title + '</br>' + description +
       '</br>' + marker.user + '</br>'
@@ -180,22 +181,9 @@
           marker.id = response.id;
           marker.label = response.title;
           marker.description = response.description;
+          showMarkerDetails(marker);
         }
       });
-      google.maps.event.addListener(marker, 'click', (function (clickedMarker) {
-        return function () {
-          marker = clickedMarker;
-          infowindow.setContent(container);
-          console.log(clickedMarker.id);
-          htmlBox.innerHTML = clickedMarker.label + '</br>' + clickedMarker.description +
-          '</br>' + clickedMarker.user + '</br>'
-          + "<a href='#' class='edit-btn' data-marker-description=' " +
-          clickedMarker.description + " ' data-marker-title=' " + clickedMarker.label +
-          " ' data-marker-id=' " + clickedMarker.id + " '>Edit</a> <br> <a href='#' class='dlt-btn'>Delete</a>"
-          infowindow.open(map, clickedMarker);
-        }
-      })(marker));
-
     });
 
 
@@ -232,8 +220,7 @@
   };
 
   function addMarker(location, map) {
-    // Add the marker at the clicked location, and add the next-available label
-    // from the array of alphabetical characters.
+    // New Marker
     marker = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
@@ -241,27 +228,12 @@
       clickable: true,
       draggable: true
     });
-
-    marker.addListener('dragend',function(event) {
-      var latitudine = event.latLng.lat();
-      var longitudine = event.latLng.lng();
-      var id = marker.id
-      var request = $.ajax({
-        method: "POST",
-        url: "/groups/updatemarkerposition",
-        data: { latitude: latitudine, longitude: longitudine, id: id },
-        success: function(response) {
-          marker.id = response.id;
-          marker.position = {lat: response.latitude, lng: response.longitude};
-        }
-      });
-    });
+    dragfinish(marker);
   }
 
 
   var addMarkerByLatLng = function(data, map) {
-    // Add the marker at the clicked location, and add the next-available label
-    // from the array of alphabetical characters.
+    // re-loaded markers
     marker = new google.maps.Marker({
       position: {lat: data.latitude, lng: data.longitude},
       label: data.title,
@@ -272,7 +244,10 @@
       id: data.id,
       user: data.user
     });
+    dragfinish(marker);
+  }
 
+  var dragfinish = function(marker) {
     marker.addListener('dragend',function(event) {
       var latitudine = event.latLng.lat();
       var longitudine = event.latLng.lng();
@@ -287,7 +262,23 @@
         }
       });
     });
-  }
+  };
+
+  var showMarkerDetails = function(marker) {
+    google.maps.event.addListener(marker, 'click', (function (clickedMarker) {
+      return function () {
+        marker = clickedMarker;
+        infowindow.setContent(container);
+        console.log(clickedMarker.id);
+        htmlBox.innerHTML = clickedMarker.label + '</br>' + clickedMarker.description +
+        '</br>' + clickedMarker.user + '</br>'
+        + "<a href='#' class='edit-btn' data-marker-description=' " +
+        clickedMarker.description + " ' data-marker-title=' " + clickedMarker.label +
+        " ' data-marker-id=' " + clickedMarker.id + " '>Edit</a> <br> <a href='#' class='dlt-btn'>Delete</a>"
+        infowindow.open(map, clickedMarker);
+      }
+    })(marker));
+  };
 
 
   google.maps.event.addDomListener(window, 'load', initMap);

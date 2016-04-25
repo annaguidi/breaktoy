@@ -15,6 +15,14 @@
  *= require foundation_and_overrides
  */
 
+html#group-totals a:hover {
+   color: #2199e8;
+ }
+
+ html#group-totals a {
+    color: #fff;
+  }
+
  .menu-text {
    color: #fff;
  }
@@ -25,7 +33,7 @@
   padding: 20px;
 
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
 
   margin: -70px 0 0 -170px;
@@ -43,10 +51,12 @@
    color: #fff;
  }
 
- .happiness li a {
-   a:hover, a:focus {
-     color: #fff;
-   }
+ .happiness li a:hover {
+   color: #f1d3bc;
+ }
+
+ .unhappiness a:hover {
+   color: #f1d3bc;
  }
 
  .Profiletitle {
@@ -67,13 +77,6 @@
    padding-left: 5%;
  }
 
- .main-title * {
-   text-align: center;
-   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-   color: #fedcd2;
-   font-size: 400%;
-   font-family: 'Leckerli One', cursive;
- }
 
  .front-page-image {
   text-align: center;
@@ -85,9 +88,8 @@
 
  .group-index-page {
    text-align: center;
-   color: #fedcd2;
-   font-size: 250%;
-   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+   color: #FF6464;
+   font-size: 290%;
    font-family: 'Leckerli One', cursive;
  }
 
@@ -102,7 +104,7 @@
  }
 
  html {
-   background-image: image-url("background4.jpg");
+   background-image: image-url("background9.jpg");
    background-repeat: no-repeat;
    background-position: center center;
    background-size: cover;
@@ -116,4 +118,16 @@
  .groupies {
    background-color: rgba(255,255,255, 0.5);
    padding: 10px;
+ }
+
+ html#homepage {
+  background-image: image-url("background10.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+ }
+
+ #marker-sidebar {
+   background-color: rgba(255,255,255, 0.5);
  }
