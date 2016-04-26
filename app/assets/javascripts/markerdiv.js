@@ -9,10 +9,10 @@ function initScroll() {
     success: function(response) {
       var scrollbar = $(document.getElementById("marker-sidebar"));
       for (var i = response.length - 1; i > 0; i--) {
-        scrollbar.append("<a href='#' class='link-btn' data-marker-latitude='"
-        + response[i].latitude + "' + data-marker-longitude='" +
-        response[i].longitude + "'>" + response[i].title + "</a><br>"
-        + "- " + response[i].user + "<br><br>");
+        scrollbar.append("<a href='#' class='link-btn' data-marker-latitude='" +
+        response[i].latitude + "' + data-marker-longitude='" +
+        response[i].longitude + "'>" + response[i].title + "</a><br>" +
+        "- " + response[i].user + "<br><br>");
       }
     }
   });
