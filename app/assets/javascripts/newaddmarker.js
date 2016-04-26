@@ -39,6 +39,9 @@
       content: ''
     });
 
+    var infobutton = document.getElementById('infobutton');
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(infobutton);
+
 
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
@@ -142,6 +145,7 @@
     });
 
     $(document).on('click', '.dlt-btn', function deleteContent() {
+      event.preventDefault();
       var id = marker.id;
       var request = $.ajax({
         method: "POST",

@@ -1,22 +1,27 @@
+<html id="group-individuals">
 
-<h3>Group Info</h3>
-
-<%= @group.name %> - <%= @group.city %> - <%= @group.country %><br/>
-
-<% @group.members.each do |member| %>
-  <%= member.user.profile.name %><br/>
-<% end %>
-
-<div class="edit-group-info">
-  <%= button_to "Delete", group_path(@group), class:"button", method:"delete" %>
-  <%= link_to "Edit #{@group.name}", edit_group_path(@group), class:"button" %>
+<div class="reveal" id="exampleModal1" data-reveal>
+  <h1><%= @group.name %></h1>
+  <p class="lead"><%= @group.city %></p>
+  <% @group.members.each do |member| %>
+    <p><%= member.user.profile.name %></p>
+  <% end %>
+  <p><%= button_to "Delete", group_path(@group), class:"button", method:"delete" %></p>
+  <p><%= link_to "Edit #{@group.name}", edit_group_path(@group), class:"button" %></p>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
+
+<div id="infobutton" class="button" data-open="exampleModal1">View Group Info</div>
 
 <span id="data-group-id" data-group-id= "<%= @group.id %>" ></span>
 <span id="data-group-latitude" data-group-latitude= "<%= @group.latitude %>" ></span>
 <span id="data-group-longitude" data-group-longitude= "<%= @group.longitude %>" ></span>
 
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-  <div id="googleMap" style="width:80%;height:100%;"></div>
-  <div id="marker-sidebar" style="overflow:scroll; width:20%;height:100%"></div>
+  <div id="googleMap" style="width:80%;height:90%;"></div>
+  <div id="marker-sidebar" style="overflow:scroll; width:20%;height:90%"></div>
   <div class="your point"></div>
+
+</html>

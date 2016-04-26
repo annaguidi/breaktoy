@@ -20,7 +20,6 @@ feature "User edits one of his or her groups" do
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
-    expect(page).to have_content(group.country)
     expect(page).to have_content(user.profile.name)
     expect(page).to have_content(user2.profile.name)
 
@@ -47,7 +46,6 @@ feature "User edits one of his or her groups" do
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
-    expect(page).to have_content(group.country)
     expect(page).to have_content(user.profile.name)
     expect(page).to have_content(user2.profile.name)
 

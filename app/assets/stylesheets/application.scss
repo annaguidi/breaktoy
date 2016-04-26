@@ -16,7 +16,7 @@
  */
 
 html#group-totals a:hover {
-   color: #2199e8;
+   color: #f1d3bc;
  }
 
  html#group-totals a {
@@ -28,7 +28,7 @@ html#group-totals a:hover {
  }
 
  .main-title {
-   width: 300px;
+   width: 350px;
   height: 100px;
   padding: 20px;
 
@@ -60,13 +60,20 @@ html#group-totals a:hover {
  }
 
  .Profiletitle {
+   color: #fff;
    text-align: center;
+   font-family: 'Leckerli One', cursive;
+   font-size: 290%;
+   padding-top: 2%;
+   padding-bottom: 2%;
  }
 
  .information {
    padding-top: 50px;
-   padding-left: 5%;
+   background-color: rgba(255,255,255, 0.7);
+   text-align: center;
  }
+
  .information *{
    padding-top: 8px;
    padding-bottom: 8px;
@@ -74,7 +81,6 @@ html#group-totals a:hover {
 
  .edit_profile {
    padding-top: 10px;
-   padding-left: 5%;
  }
 
 
@@ -91,6 +97,8 @@ html#group-totals a:hover {
    color: #FF6464;
    font-size: 290%;
    font-family: 'Leckerli One', cursive;
+   padding-top: 2%;
+   padding-bottom: 1%;
  }
 
  .group-content {
@@ -129,5 +137,18 @@ html#group-totals a:hover {
  }
 
  #marker-sidebar {
-   background-color: rgba(255,255,255, 0.5);
+   background-color: rgba(255,255,255, 0.7);
+ }
+
+ .groupform {
+  color: #FF6464;
+ }
+
+ html#group-individuals #infobutton{
+   background-color: #2199e8;
+   border-radius: 20px;
+ }
+
+ .top-bar {
+   height: 9%;
  }
