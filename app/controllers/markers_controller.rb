@@ -26,13 +26,4 @@ class MarkersController < ApplicationController
     render json: @lastmarker
   end
 
-
-  def updateimage
-    binding.pry
-    @marker =  Marker.find(params[:id])
-    @marker.img_url = params[:image]
-    binding.pry
-    @marker.save
-    render json: @marker
-  end
 end
