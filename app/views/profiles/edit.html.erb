@@ -1,8 +1,6 @@
-<h3>Edit Profile</h3>
+<div class="editprofile">Edit Profile</div>
 
 <%= form_for @profile do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
 
   <%= f.label :location, "Current location" %>
   <%= f.text_field :location %>
@@ -10,13 +8,19 @@
   <%= f.label :about, "About me" %>
   <%= f.text_area :about %>
 
-  <%= f.label :avatar_url, "Upload Image" %><br>
+  <%= f.label :avatar_url, "Upload Image" %>
   <%= f.file_field :avatar_url %>
+  <br />
   <% if f.object.avatar_url? %>
     <%= image_tag f.object.avatar_url.thumb.url %>
+      <br />
+    <div class="remove_avatar_stuff">
     <%= f.label :remove_avatar_url %>
     <%= f.check_box :remove_avatar_url %>
+    </div>
   <% end %>
+  <br />
 
-  <%= f.submit "Update Profile", class:'button' %>
+
+  <%= f.submit "Update Profile", class:'button', id:"updateprofbutton" %>
 <% end %>

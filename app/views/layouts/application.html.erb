@@ -17,7 +17,7 @@
     <div class="top-bar">
 
       <div class="top-bar-left">
-          <div class="menu-text unhappiness"> <%= link_to "Home Page", staticpages_path %> </div>
+        <%= link_to image_tag('/assets/cityscout-white.png', height: '12%', width: '15%'), root_path, id:'love'%>
       </div>
 
       <div class="top-bar-right">
@@ -50,7 +50,7 @@
       </div>
     </div>
 
-     <div class="notices small-12 columns" id="flash-notices">
+     <div class="notices small-12 columns" id="flash-notices-non-js">
        <% flash.each do |name, msg| %>
          <% if msg.is_a?(String) %>
            <%= content_tag :div, msg, :class => "flash_#{name}" %>

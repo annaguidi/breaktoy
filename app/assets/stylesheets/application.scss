@@ -15,16 +15,30 @@
  *= require foundation_and_overrides
  */
 
+ #flash-notices-non-js {
+   color: #fff;
+   background-color: #5cc5ef;
+   font-size: 20px;
+   width: 100%;
+   font-weight: bold;
+   text-align: center;
+ }
+
 html#group-totals a:hover {
    color: #f1d3bc;
  }
 
  html#group-totals a {
     color: #fff;
+    font-weight: bold;
   }
 
  .menu-text {
    color: #fff;
+ }
+
+ #hellohellohello{
+   height: 5px;
  }
 
  .main-title {
@@ -88,10 +102,6 @@ html#group-totals a:hover {
   text-align: center;
  }
 
- .groupies {
-   padding: 20px;
- }
-
  .group-index-page {
    text-align: center;
    color: #FF6464;
@@ -105,10 +115,8 @@ html#group-totals a:hover {
   text-align: center;
  }
 
- .group-content *{
-   padding-left: 50px;
-   padding-right: 50px;
-   padding-top: 20px;
+ .group-content .groupies{
+   padding: 5%;
  }
 
  html {
@@ -125,7 +133,6 @@ html#group-totals a:hover {
 
  .groupies {
    background-color: rgba(255,255,255, 0.5);
-   padding: 10px;
  }
 
  html#homepage {
@@ -136,12 +143,12 @@ html#group-totals a:hover {
   background-attachment: fixed;
  }
 
- #marker-sidebar {
-   background-color: rgba(255,255,255, 0.7);
+ html#group-individuals {
+   background-image: image-url("background2.jpg");
  }
 
- .groupform {
-  color: #FF6464;
+ #marker-sidebar {
+   background-color: rgba(255,255,255, 0.7);
  }
 
  html#group-individuals #infobutton{
@@ -151,4 +158,115 @@ html#group-totals a:hover {
 
  .top-bar {
    height: 9%;
+ }
+
+ .groupmagic *{
+   text-align: center;
+ }
+
+ .new_group {
+   color: #FF6464;
+   width: 25%;
+   padding-left: 1%;
+ }
+
+ .new_group label {
+   color: #fff;
+ }
+
+ .createyourgroup {
+   float: left;
+   color: #FF6464;
+   font-size: 290%;
+   font-family: 'Leckerli One', cursive;
+   padding-top: 2%;
+   padding-bottom: 1%;
+   padding-left: 2%;
+ }
+
+ .edit_profile input{
+   padding-left: 1%;
+   width: 25%;
+ }
+
+ .edit_profile label {
+   color: #fff;
+ }
+
+ .editprofile {
+   float: center;
+   color: #FF6464;
+   font-size: 270%;
+   font-family: 'Leckerli One', cursive;
+   padding-top: 2%;
+   padding-bottom: 1%;
+   padding-left: 2%;
+ }
+
+ .new_user input,
+ .edit_user input,
+ #user_name,
+ .edit_group input,
+ #group_country {
+   width: 25%;
+ }
+
+ #profile_about {
+   width: 50%;
+   height: 15%;
+ }
+
+ .new_user,
+ .edit_profile,
+ .edit_user {
+   padding-left: 1%;
+ }
+
+ .edit_user label,
+ .new_user label,
+ .edit_group label {
+   color: #fff;
+   font-size: 17px;
+ }
+
+ .edit_user i,
+ .new_user em,
+ #profile_avatar_url {
+   color: #fff;
+ }
+
+ .unhappyquestion {
+   color: #fff;
+   padding: 1%;
+ }
+
+ #updatebuttonspecial,
+ #singupbutton,
+ #loginbutton,
+ #updateprofbutton {
+   width: auto;
+ }
+
+ .editusertitle,
+ .signuptitle,
+ .logintitle,
+ .updategrouptitle {
+   padding: 2%;
+   color: #FF6464;
+   font-size: 270%;
+   font-family: 'Leckerli One', cursive;
+ }
+
+ #user_remember_me,
+ #profile_remove_avatar_url {
+   width: auto;
+ }
+
+ .remove_avatar_stuff {
+   display: inline-block;
+ }
+
+ .row-padding {
+   margin-bottom: 1em;
+   margin-top: 1.5em;
  }

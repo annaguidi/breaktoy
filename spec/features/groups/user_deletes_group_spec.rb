@@ -20,7 +20,7 @@ feature "User deletes his/her group" do
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
-    expect(page).to have_content(profile.name)
+    expect(page).to have_content(user.name)
 
     click_button "Delete"
 
@@ -35,7 +35,7 @@ feature "User deletes his/her group" do
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
-    expect(page).to have_content(profile.name)
+    expect(page).to have_content(user.name)
 
     click_button "Delete"
 

@@ -19,7 +19,7 @@ feature "User views detail of his/her group" do
 
     expect(page).to have_content(group.name)
     expect(page).to have_content(group.city)
-    expect(page).to have_content(profile.name)
+    expect(page).to have_content(user.name)
   end
   scenario 'user unsucc. tries to view group details he/she is not part of' do
     login(user2)

@@ -8,7 +8,7 @@ function initScroll() {
     data: {group_id: group_id},
     success: function(response) {
       var scrollbar = $(document.getElementById("marker-sidebar"));
-      for (var i = response.length - 1; i > 0; i--) {
+      for (var i = response.length - 1; i >= 0; i--) {
         scrollbar.append("<a href='#' class='link-btn' data-marker-latitude='" +
         response[i].latitude + "' + data-marker-longitude='" +
         response[i].longitude + "'>" + response[i].title + "</a><br>" +
