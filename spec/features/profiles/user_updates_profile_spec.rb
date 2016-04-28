@@ -11,7 +11,6 @@ feature "User updates profile" do
 
     click_link "Edit Profile"
 
-    fill_in 'Name', with: "Anna"
     fill_in 'Current location', with: "Milan, Italy"
     fill_in 'About me', with: "About to move to Rotterdam, NL"
     attach_file "Upload Image", "#{Rails.root}/spec/support/images/photo.jpg"
@@ -22,7 +21,6 @@ feature "User updates profile" do
 
     visit profile_path(profile1)
 
-    expect(page).to have_content("Anna")
     expect(page).to have_content("Milan, Italy")
     expect(page).to have_content("About to move to Rotterdam, NL")
     expect(page).to have_css("img[src*='photo.jpg']")

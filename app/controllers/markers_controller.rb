@@ -19,10 +19,20 @@ class MarkersController < ApplicationController
     @marker.member = @member
     @marker.title = "Title: "
     @marker.description = "Description: "
-    @marker.user = current_user.email
+    @marker.user = current_user.name
     @marker.save
     @markers = Marker.where(member: @members)
     @lastmarker = @markers.last
     render json: @lastmarker
+  end
+
+
+  def updateimage
+    binding.pry
+    @marker =  Marker.find(params[:id])
+    @marker.img_url = params[:image]
+    binding.pry
+    @marker.save
+    render json: @marker
   end
 end

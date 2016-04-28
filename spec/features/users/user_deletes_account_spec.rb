@@ -8,7 +8,7 @@ feature "User deletes account" do
 
     click_on 'Edit registration'
 
-    expect(page).to have_content('Cancel my account')
+    expect(page).to have_button('Cancel my account')
   end
   scenario 'user attempts to log in with deleted account' do
     login(user)

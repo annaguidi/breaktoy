@@ -6,9 +6,7 @@
 
 <div class="information">
 
-    <% if @profile.name != "" %>
-      <div class="row">Name: <%= @profile.name %></div>
-    <% end %>
+    <div class="row">Name: <%= current_user.name %></div>
 
     <% if @profile.about.nil? != true %>
       <div class="row">About: <%= @profile.about %></div>

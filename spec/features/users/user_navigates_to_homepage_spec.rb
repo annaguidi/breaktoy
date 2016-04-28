@@ -1,6 +1,6 @@
 require 'rails_helper'
-feature "User logs out" do
-  scenario 'user successfully logs out' do
+feature "User navigates to home page" do
+  scenario 'user successfully navigates to homepage' do
     user = FactoryGirl.create(:user)
     profile = FactoryGirl.create(:profile, user: user)
 
@@ -10,8 +10,8 @@ feature "User logs out" do
 
     expect(page.current_path).to eq profile_path(profile)
 
-    click_link "Home Page"
+    click_link('love')
 
-    expect(page.current_path).to eq staticpages_path
+    expect(page.current_path).to eq root_path
   end
 end

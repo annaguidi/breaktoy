@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Profile, type: :model do
   let(:profile) do
     Profile.new(
-      name: "socr8",
       avatar_url: "http://i.imgur.com/QpC6Dpl.jpg",
       location: "Ancient Greece",
       about: "Be as you wish to Github"

@@ -1,7 +1,6 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
 
-  validates :name, presence: true, on: :update
   validates :user, presence: true
 
   mount_uploader :avatar_url, ImageUploader

@@ -62,7 +62,7 @@ class GroupsController < ApplicationController
     @member = Member.new(user: current_user, group: @group, owner: true)
     if @group.save && @member.save
       flash[:notice] = "Group added successfully!"
-      redirect_to "/"
+      redirect_to group_path(@group)
     else
       flash[:error] = "Group not added successfully! #{@group.errors.full_messages.join ', '}."
       render :new
@@ -85,7 +85,7 @@ class GroupsController < ApplicationController
     if owner?(@group) == true
       if @group.update(group_params)
         flash[:notice] = "You just updated your Group Info!"
-        redirect_to "/"
+        redirect_to group_path(@group)
       else
         flash[:error] = "Did not update Group. #{@profile.errors.full_messages.join(', ')}."
         render :edit
