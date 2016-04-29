@@ -15,6 +15,11 @@
  *= require foundation_and_overrides
  */
 
+.logo *{
+  height: 45px;
+  transform: translate(0, -9%);
+}
+
  #flash-notices-non-js {
    color: #fff;
    background-color: #5cc5ef;
