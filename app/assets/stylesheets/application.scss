@@ -15,9 +15,9 @@
  *= require foundation_and_overrides
  */
 
-#love {
-  height: 12%;
-  width: 15%;
+.logo *{
+  height: 45px;
+  transform: translate(0, -9%);
 }
 
  #flash-notices-non-js {
