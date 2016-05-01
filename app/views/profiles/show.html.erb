@@ -5,23 +5,47 @@
 </div>
 
 <div class="information">
+  <div class="row">Name: <%= current_user.name %></div>
 
-    <div class="row">Name: <%= current_user.name %></div>
+  <% if @profile.about.nil? != true %>
+    <div class="row">About: <%= @profile.about %></div>
+  <% end %>
 
-    <% if @profile.about.nil? != true %>
-      <div class="row">About: <%= @profile.about %></div>
-    <% end %>
+  <% if @profile.location.nil? != true %>
+    <div class="row">Current Location: <%= @profile.location %></div>
+  <% end %>
 
-    <% if @profile.location.nil? != true %>
-      <div class="row">Current Location: <%= @profile.location %></div>
-    <% end %>
-
-    <% if @profile.avatar_url.nil? != true %>
-      <p><%= image_tag "#{@profile.avatar_url.thumb.url}" %></p>
-    <% end %>
-
+  <% if @profile.avatar_url.nil? != true %>
+    <%= image_tag "#{@profile.avatar_url.thumb.url}" %>
+  <% end %>
 </div>
 
-<div class="edit_profile">
-  <%= link_to "Edit Profile", edit_profile_path %>
+<%= link_to "Edit Profile", edit_profile_path, class:"button" %>
+
+<% if !@invites.empty? %>
+  <div id="infobutton2" class="button" data-open="exampleModal2">View Your Invites!</div>
+<% end %>
+
+<div class="reveal invitesmagic" id="exampleModal2" data-reveal>
+  <div class="invitesbox">
+    <% @invites.each do |invite| %>
+      <div class="groupname">
+        You were invited to join <%= invite.group.name %>
+      </div>
+      <div class="showMembers">
+        <h5>Members</h5>
+        <% invite.group.members.each do |member| %>
+          <%= member.user.name %><br>
+        <% end %>
+        <br>
+      </div>
+      <div class="acceptrejectGroup">
+        <%= button_to "Accept Invitation", acceptgroup_group_invites_path(invite.group), class: 'button' %>
+        <%= button_to "Reject Invitation", denygroup_group_invites_path(invite.group), class: 'button' %>
+      </div>
+    <% end %>
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>

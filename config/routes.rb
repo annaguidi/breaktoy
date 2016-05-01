@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :profiles
+
   resources :groups do
     collection do
       get 'markers'
@@ -8,12 +9,19 @@ Rails.application.routes.draw do
       post 'deletemarker'
       post 'updatemarkerposition'
     end
+    resources :invites do
+      collection do
+        post 'acceptgroup'
+        post 'denygroup'
+      end
+    end
   end
+
   resources :markers
   resources :members
   resources :staticpages
 
-
+  resources :invites
   root 'staticpages#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

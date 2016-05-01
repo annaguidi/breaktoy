@@ -1,0 +1,9 @@
+<%= form_for [@group, @invite] do |f| %>
+
+
+ <%= f.label :name, "Add a Member to your group:" %>
+ <%= f.collection_select(:user_id, @user_selects, :id, :name) %>
+
+ <%= f.submit "Add to group!", class: 'button addGroupButton' %>
+
+<% end %>
