@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
+    @invites = Invite.where(user: current_user).where(accepted: false)
     @user = @profile.user
   end
 

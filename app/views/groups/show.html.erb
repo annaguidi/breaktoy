@@ -3,10 +3,12 @@
 <div class="reveal groupmagic" id="exampleModal1" data-reveal>
   <h1><%= @group.name %></h1>
   <p class="lead"><%= @group.city %></p>
+  <h5>Members:</h5>
   <% @group.members.each do |member| %>
     <p><%= member.user.name %></p>
   <% end %>
-  <p><%= button_to "Delete", group_path(@group), class:"button", method:"delete" %></p>
+  <%= render '/invites/form'  %>
+  <p><%= button_to "Delete #{@group.name}", group_path(@group), class:"button", method:"delete" %></p>
   <p><%= link_to "Edit #{@group.name}", edit_group_path(@group), class:"button" %></p>
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>

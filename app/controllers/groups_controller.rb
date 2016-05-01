@@ -14,6 +14,11 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @members = @group.members.map { |member| member.user }
+    @invites = Invite.where(group: @group)
+    @invited = @invites.map { |invite| invite.user }
+    @user_selects = User.all - @members - @invited
+    @invite = Invite.new
     if member?(@group) == true
       render :show
     else
@@ -105,11 +110,11 @@ class GroupsController < ApplicationController
         redirect_to groups_path
       else
         flash[:notice] = "You do not have permission to delete this group"
-        render :show
+        redirect_to group_path(@group)
       end
     else
       flash[:notice] = "You do not have permission to delete this group"
-      render :show
+      redirect_to group_path(@group)
     end
   end
 

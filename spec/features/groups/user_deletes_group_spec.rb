@@ -30,7 +30,6 @@ feature "User deletes his/her group" do
     login(user2)
 
     click_link "See your Groups"
-
     click_link group.name
 
     expect(page).to have_content(group.name)

@@ -15,6 +15,56 @@
  *= require foundation_and_overrides
  */
 
+ // .notices .close {
+ //     right: 0.25rem;
+ //     background: inherit;
+ //     color: #333333;
+ //     font-size: 1.375rem;
+ //     line-height: .9;
+ //     margin-top: -0.6875rem;
+ //     opacity: 0.3;
+ //     padding: 0 6px 4px;
+ //     position: absolute;
+ //     top: 50%;
+ // }
+
+.new_invite select {
+  width: 30%;
+}
+
+.addGroupButton {
+  margin-top: 12px;
+}
+
+.groupNameProfile {
+  color: #f1d3bc;
+}
+
+.showMembers {
+  text-align: center;
+}
+
+.groupname {
+  padding-bottom: 3%;
+  text-align: center;
+}
+
+.acceptrejectGroup {
+  text-align: center;
+}
+
+.acceptrejectGroup *{
+  display: inline-block;
+}
+
+.sidelinks {
+  float: left;
+}
+
+ .displaytogether *{
+   display: inline-block;
+ }
+
 .logo *{
   height: 45px;
   transform: translate(0, -9%);
@@ -88,9 +138,19 @@ html#group-totals a:hover {
  }
 
  .information {
-   padding-top: 50px;
+   padding-top: 1%;
    background-color: rgba(255,255,255, 0.7);
    text-align: center;
+   margin-bottom: 3%;
+ }
+
+ .editProfileLink {
+   font-size: 120%;
+   padding-left: 1%;
+ }
+
+ #infobutton2 {
+   float: right;
  }
 
  .information *{
@@ -103,7 +163,8 @@ html#group-totals a:hover {
  }
 
 
- .front-page-image {
+ .front-page-image,
+ .group-content {
   text-align: center;
  }
 
@@ -114,10 +175,6 @@ html#group-totals a:hover {
    font-family: 'Leckerli One', cursive;
    padding-top: 2%;
    padding-bottom: 1%;
- }
-
- .group-content {
-  text-align: center;
  }
 
  .group-content .groupies{
@@ -137,7 +194,7 @@ html#group-totals a:hover {
  }
 
  .groupies {
-   background-color: rgba(255,255,255, 0.5);
+   background-color: rgba(255,255,255, 0.55);
  }
 
  html#homepage {
@@ -175,10 +232,6 @@ html#group-totals a:hover {
    padding-left: 1%;
  }
 
- .new_group label {
-   color: #fff;
- }
-
  .createyourgroup {
    float: left;
    color: #FF6464;
@@ -194,10 +247,6 @@ html#group-totals a:hover {
    width: 25%;
  }
 
- .edit_profile label {
-   color: #fff;
- }
-
  .editprofile {
    float: center;
    color: #FF6464;
@@ -211,8 +260,7 @@ html#group-totals a:hover {
  .new_user input,
  .edit_user input,
  #user_name,
- .edit_group input,
- #group_country {
+ .edit_group input {
    width: 25%;
  }
 
@@ -229,9 +277,13 @@ html#group-totals a:hover {
 
  .edit_user label,
  .new_user label,
- .edit_group label {
+ .edit_group label,
+ .edit_profile label,
+ .new_group label,
+ .creategroupmessage {
    color: #fff;
    font-size: 17px;
+   font-weight: bold;
  }
 
  .edit_user i,
