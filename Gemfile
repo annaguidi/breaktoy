@@ -36,7 +36,7 @@ gem 'json'
 gem 'foundation-rails'
 
 gem 'carrierwave', '~> 0.10.0'
-gem 'mini_magick', '~> 4.3'
+gem 'mini_magick', '~> 4.9'
 gem 'geocoder'
 
 group :development, :test do
